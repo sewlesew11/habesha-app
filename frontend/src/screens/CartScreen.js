@@ -11,8 +11,8 @@ export default function CartScreen(props) {
     const qty = new URLSearchParams(location.search).get("qty") ?? 1;
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
+    // const { cartItems, error } = cart;
     const dispatch = useDispatch();
-
     useEffect(() => {
         if (productId) {
             dispatch(addToCart(productId, qty));
@@ -31,6 +31,7 @@ export default function CartScreen(props) {
         <div className="row top">
             <div className="col-2">
                 <h1>Shopping Cart</h1>
+                {/* {error && <MessageBox variant="danger">{error}</MessageBox>} */}
                 {cartItems.length === 0 ? <MessageBox>
                     Cart is empty.<Link to="/">Go Shopping</Link>
                 </MessageBox>
@@ -42,7 +43,7 @@ export default function CartScreen(props) {
                                     <li key={item.product}>
                                         <div className="row">
                                             <div>
-                                                <img className="small" src={item.image} alt={item.name}></img>
+                                                <img className="small" src={`http://localhost:5000${item.image}`} alt={item.name}></img>
                                             </div>
                                             <div className="min-30">
                                                 <Link to={`/product/${item.product}`}>{item.name}</Link>

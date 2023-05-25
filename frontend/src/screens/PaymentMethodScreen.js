@@ -12,7 +12,7 @@ export default function PaymentMethodScreen(props) {
         navigate('/shipping');
     }
 
-    const [paymentMethod, setPaymentMethod] = useState('PayPal');
+    const [paymentMethod, setPaymentMethod] = useState('PayPal', 'Chapa');
     const dispatch = useDispatch();
     const submitHandler = (e) => {
         e.preventDefault();
@@ -46,14 +46,14 @@ export default function PaymentMethodScreen(props) {
                     <div>
                         <input
                             type="radio"
-                            id="stripe"
-                            value="Stripe"
+                            id="chapa"
+                            value="Chapa"
                             name="paymentMethod"
                             required
                             onChange={(e) => setPaymentMethod(e.target.value)}
 
                         ></input>
-                        <label htmlFor="stripe">Stripe</label>
+                        <label htmlFor="chapa">Chapa</label>
                     </div>
                 </div>
                 <div>

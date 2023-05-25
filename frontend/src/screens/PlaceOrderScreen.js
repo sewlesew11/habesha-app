@@ -79,7 +79,7 @@ export default function PlaceOrderScreen(props) {
                                         <li key={item.product}>
                                             <div className="row">
                                                 <div>
-                                                    <img className="small" src={item.image} alt={item.name}></img>
+                                                    <img className="small" src={`http://localhost:5000${item.image}`} alt={item.name}></img>
                                                 </div>
                                                 <div className="min-30">
                                                     <Link to={`/ product / ${item.product}`}>{item.name}</Link>

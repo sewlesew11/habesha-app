@@ -19,6 +19,8 @@ const orderSchema = new mongoose.Schema({
         city: { type: String, required: true },
         postalCode: { type: String, required: true },
         country: { type: String, required: true },
+        lat: Number,
+        lng: Number,
     },
     paymentMethod: { type: String, required: true },
     paymentResuult: {
@@ -27,11 +29,22 @@ const orderSchema = new mongoose.Schema({
         update_time: String,
         email_address: String,
     },
+    paymentData: {
+        id: String,
+        status: String,
+        update_time: String,
+        email_address: String,
+    },
+    chapaCheckoutUrl: {
+        type: String,
+        required: false,
+    },
     itemsPrice: { type: Number, required: true },
     shippingPrice: { type: Number, required: true },
     taxPrice: { type: Number, required: true },
     totalPrice: { type: Number, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+
     isPaid: { type: Boolean, default: false },
     paidAt: { type: Date },
     isDelivered: { type: Boolean, default: false },

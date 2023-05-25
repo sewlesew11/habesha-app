@@ -1,9 +1,38 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { cartReducer } from './reducers/cartReducers';
-import { orderCreateReducer, orderDetailsReducer, orderMineListReducer, orderPayReducer } from './reducers/orderReducers';
-import { productCreateReducer, productDetailsReducer, productListReducer, } from './reducers/productReducers';
-import { userDetailsReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer } from './reducers/userReducers';
+import {
+    orderCreateReducer,
+    orderDeleteReducer,
+    orderDeliverReducer,
+    orderDetailsReducer,
+    orderInitializePaymentReducer,
+    orderListReducer,
+    orderMineListReducer,
+    orderPayReducer,
+    orderSummaryReducer
+} from './reducers/orderReducers';
+import {
+
+    productCategoryListReducer,
+    productCreateReducer,
+    productDeleteReducer,
+    productDetailsReducer,
+    productListReducer,
+    productReviewCreateReducer,
+    productUpdateReducer,
+    topRatedProductsReducer,
+} from './reducers/productReducers';
+import {
+    userAddressMapReducer,
+    userDeleteReducer,
+    userDetailsReducer,
+    userListReducer,
+    userRegisterReducer,
+    userSigninReducer,
+    userUpdateProfileReducer,
+    userUpdateReducer
+} from './reducers/userReducers';
 
 const initialState = {
     userSignin: {
@@ -19,7 +48,7 @@ const initialState = {
             ? JSON.parse(localStorage.getItem('shippingAddress'))
             : {},
 
-        paymentMethod: 'PayPal',
+        paymentMethod: 'PayPal Chapa',
     },
 };
 const reducer = combineReducers({
@@ -34,7 +63,21 @@ const reducer = combineReducers({
     orderMineList: orderMineListReducer,
     userDetails: userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,
+    userUpdate: userUpdateReducer,
     productCreate: productCreateReducer,
+    productUpdate: productUpdateReducer,
+    productDelete: productDeleteReducer,
+    orderList: orderListReducer,
+    orderDelete: orderDeleteReducer,
+    orderDeliver: orderDeliverReducer,
+    userList: userListReducer,
+    userDelete: userDeleteReducer,
+    topRatedProducts: topRatedProductsReducer,
+    productCategoryList: productCategoryListReducer,
+    productReviewCreate: productReviewCreateReducer,
+    userAddressMap: userAddressMapReducer,
+    orderSummary: orderSummaryReducer,
+    orderInitializePayment: orderInitializePaymentReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
