@@ -40,7 +40,16 @@ app.use('/api/orders', orderRouter);
 app.get('/api/config/paypal', (req, res) => {
     res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
-
+app.get(`/api/initialize-payment`, (req, res) => {
+    const data = {
+        message: "Hosted Link",
+        status: "success",
+        data: {
+            checkout_url: "https://checkout.chapa.co/checkout/payment/V38JyhpTygC9QimkJrdful9oEjih0heIv53eJ1MsJS6xG",
+        },
+    };
+    res.redirect(data.data.checkout_url);
+});
 
 app.get('/api/config/google', (req, res) => {
     res.send(process.env.GOOGLE_API_KEY || '');

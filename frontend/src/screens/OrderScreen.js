@@ -15,7 +15,17 @@ import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from '../constants/orderConstant
 export default function OrderScreen(props) {
     const { id } = useParams();
     const orderId = id;
+    const paymentMethod = useSelector((state) => state.cart.paymentMethod);
     const [sdkReady, setSdkReady] = useState(false);
+
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
+    const [email, setEmail] = useState('');
+    const [amount, setAmount] = useState('');
+
+
+    const tx_ref = `${fname}-tx-10122022`;
+    const public_key = 'CHAPUBK_TEST-f23unAi8tFo0Mh0WikIexcVpWzxPGwoZ';
 
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
@@ -188,6 +198,7 @@ export default function OrderScreen(props) {
                             </li>
                             {!order.isPaid && (
                                 <li>
+
                                     {!sdkReady ? (
                                         <LoadingBox></LoadingBox>
                                     ) : (
@@ -197,12 +208,56 @@ export default function OrderScreen(props) {
                                                 <MessageBox variant="danger">{errorPay}</MessageBox>
                                             )}
                                             {loadingPay && <LoadingBox></LoadingBox>}
+                                            {paymentMethod === 'PayPal' && (
+                                                <PayPalButton
+                                                    amount={order.totalPrice}
+                                                    onSuccess={successPaymentHandler}
+                                                ></PayPalButton>
+                                            )}
+                                            <div className='form'>
+                                                <lable htmlfor="fname">First Name:</lable> <br />
+                                                <input
+                                                    onChange={(e) => {
+                                                        setFname(e.target.value)
+                                                        console.log(fname)
+                                                    }}
+                                                    type="text" /> <br />
 
-                                            <PayPalButton
-                                                amount={order.totalPrice}
-                                                onSuccess={successPaymentHandler}
-                                            ></PayPalButton>
-                                            <Payment></Payment>
+                                                <lable htmlfor="lname">Last Name:</lable><br />
+                                                <input
+                                                    onChange={(e) => {
+                                                        setLname(e.target.value)
+                                                        console.log(lname)
+                                                    }}
+                                                    type="text" /> <br />
+
+                                                <label htmlFor="email">Email</label> <br />
+                                                <input
+                                                    onChange={(e) => {
+                                                        setEmail(e.target.value)
+                                                        console.log(email)
+                                                    }}
+                                                    type="email" /> <br />
+
+                                                <lable htmlfor="amount">Amount:</lable> <br />
+                                                <input
+                                                    onChange={(e) => {
+                                                        setAmount(e.target.value)
+                                                        console.log(amount)
+                                                    }}
+                                                    type="number" />
+                                                {paymentMethod === 'Chapa' && (
+                                                    <Payment
+                                                        fname={fname}
+                                                        lname={lname}
+                                                        email={email}
+                                                        amount={amount}
+                                                        tx_ref={tx_ref}
+                                                        public_key={public_key}
+                                                        orderId={orderId}
+                                                    />
+                                                )}
+                                            </div>
                                         </>
                                     )}
 
